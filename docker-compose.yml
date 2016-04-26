@@ -8,15 +8,17 @@ services:
       zk_id: "1"
 
   kafka:
-    image: confluent/kafka
+    image: edf5af24f630
     depends_on:
       - zookeeper
     ports:
       - "9092:9092"
+      - "9999:9999"
     links:
       - zookeeper
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_HOST_NAME: "192.168.99.100"
     
   rest-proxy:
     image: confluent/rest-proxy
@@ -46,6 +48,21 @@ services:
       - "8081:8081"
     environment:
       SR_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager
+    depends_on:
+      - kafka
+      - zookeeper
+    links:
+      - kafka
+      - zookeeper
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "letmein"
+      KM_ARGS: "-Djava.net.preferIPv4Stack=true"
     
 
   elasticsearch-int:
