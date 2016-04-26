@@ -1,0 +1,27 @@
+# Vagrant
+.vagrant/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Other
+out/
+
+# Custom
+harmony_parties.tsv
+on_usa_tv_celebrities_20151208.xml
+Baseline_People.csv
